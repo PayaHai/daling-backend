@@ -1,0 +1,20 @@
+{
+  "name": "daling-backend",
+  "version": "0.1.0",
+  "description": "Daling 后端",
+  "main": "src/app.ts",
+  "scripts": {
+    "build": "npx tsc",
+    "run": "npx tsc && cd build && node src/app.js"
+  },
+  "author": "HaiPaya <haipaya@aliyun.com>",
+  "bugs": "https://github.com/PayaHai/daling-backend/issues",
+  "homepage": "https://github.com/PayaHai/daling-backend",
+  "license": "GPL-3.0",
+  "repository": "github:PayaHai/daling-backend",
+  "dependencies": {
+    "fs": "^0.0.1-security",
+    "mysql2": "^3.10.2",
+    "thread-pool": "^0.0.1"
+  }
+}
