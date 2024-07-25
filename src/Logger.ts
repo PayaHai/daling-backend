@@ -1,14 +1,16 @@
 import fs from "fs"
+import Config from "./Config.js"
 
+const conf : Config = new Config("Logget")
+const _logLevel : number = conf.init("LogLevel", 4)
+const _isOutFile : boolean = conf.init("isOutFile", true)
+const _logFiles : string = conf.init("logFiles", "../logs")
 
 /**
  * 日志管理器
  */
-class Logger {
+export default class Logger {
     protected _title : string
-    protected _logLevel : number
-    protected _isFiles : boolean = true
-    protected _logFiles : string = "../logs"
 
     /**
      * 获取当前时间
@@ -30,37 +32,35 @@ class Logger {
      */
     protected _outFiles (msg : string):void {
         // 不写入文件
-        if ( !this._isFiles ) return
+        if ( !_isOutFile ) return
 
         // 获取当前时间字符串
         let time = this._getTime(true)
 
         try {
             // 创建文件夹
-            if ( !fs.existsSync(this._logFiles) ) {
-                fs.mkdirSync(this._logFiles)
+            if ( !fs.existsSync(_logFiles) ) {
+                fs.mkdirSync(_logFiles)
             }
 
             // 创建文件
-            if ( !fs.existsSync(`${this._logFiles}/${time}.log`) ) {
-                fs.writeFileSync(`${this._logFiles}/${time}.log`, "")
+            if ( !fs.existsSync(`${_logFiles}/${time}.log`) ) {
+                fs.writeFileSync(`${_logFiles}/${time}.log`, "")
             }
 
             // 写入文件
-            fs.appendFileSync(`${this._logFiles}/${time}.log`, `${msg}\n`)
+            fs.appendFileSync(`${_logFiles}/${time}.log`, `${msg}\n`)
         } catch (err) {
-            console.error(`写入日志文件"${this._logFiles}/${time}.log"时出现错误:${err}`)
+            console.error(`写入日志文件"${_logFiles}/${time}.log"时出现错误:${err}`)
         }
     }
 
     /**
      * 日志管理器
      * @param title 日志头
-     * @param logLevel 日志等级
      */
-    public constructor (title : string, logLevel : number = 4) {
+    public constructor (title : string) {
         this._title = title
-        this._logLevel = logLevel
     }
 
     /**
@@ -72,27 +72,6 @@ class Logger {
     }
 
     /**
-     * 设置日志等级
-     * @param level 日志等级
-     */
-    public setLogLevel (level : number) : void {
-        this._logLevel = level
-    }
-
-    /**
-     * 设置日志文件夹
-     * @param files 文件夹地址
-     */
-    public setLogFile (files : string | boolean | any) : void {
-        if ( typeof files == "boolean" ) {
-            this._isFiles = files
-        } else {
-            this._isFiles = true
-            this._logFiles = files
-        }
-    }
-
-    /**
      * 输出调试消息
      * @param msg 消息内容
      */
@@ -100,7 +79,7 @@ class Logger {
         // 获取当前时间字符串
         let time = this._getTime()
 
-        if (this._logLevel >= 5) {
+        if (_logLevel >= 5) {
             // 使用ANSI转义序列设置颜色
             const color = '\x1b[36m' // 青色
             const reset = '\x1b[0m'
@@ -117,7 +96,7 @@ class Logger {
         // 获取当前时间字符串
         let time = this._getTime()
 
-        if (this._logLevel >= 4) {
+        if (_logLevel >= 4) {
             const color = '\x1b[32m'; // 绿色
             const reset = '\x1b[0m';
             console.log(`${time} ${color}INFO${reset} [${this._title}]`, msg);
@@ -133,7 +112,7 @@ class Logger {
         // 获取当前时间字符串
         let time = this._getTime();
 
-        if (this._logLevel >= 3) {
+        if (_logLevel >= 3) {
             const color = '\x1b[33m'; // 黄色
             const reset = '\x1b[0m';
             console.log(`${time} ${color}WARN${reset} [${this._title}]`, msg);
@@ -149,7 +128,7 @@ class Logger {
         // 获取当前时间字符串
         let time = this._getTime();
 
-        if (this._logLevel >= 2) {
+        if (_logLevel >= 2) {
             const color = '\x1b[31m' // 红色
             const reset = '\x1b[0m'
             console.log(`${time} ${color}ERROR${reset} [${this._title}]`, msg)
@@ -165,7 +144,7 @@ class Logger {
         // 获取当前时间字符串
         let time = this._getTime()
 
-        if (this._logLevel >= 1) {
+        if (_logLevel >= 1) {
             const color = '\x1b[41m' // 背景红色
             const reset = '\x1b[0m'
             console.log(`${time} ${color}FATAL${reset} [${this._title}]`, msg)
@@ -173,5 +152,3 @@ class Logger {
         }
     }
 }
-
-export default Logger

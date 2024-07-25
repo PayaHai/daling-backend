@@ -4,7 +4,7 @@ const _eventList : Map<string, Function[]> = new Map()
 /**
  * 事件管理器
  */
-class Event {
+export default class Event {
     /**
      * 创建事件
      * @param name 事件名称
@@ -39,5 +39,3 @@ class Event {
         }
     }
 }
-
-export default Event

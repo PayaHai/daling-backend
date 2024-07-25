@@ -1,19 +1,26 @@
 import { MongoClient } from "mongodb"
+
 import Logger from "./Logger.js"
+import Config from "./Config.js"
 
 const logger : Logger = new Logger("MongoDB")
 
-class MongoDB {
+const conf : Config = new Config("MongoDB")
+const _url : string = conf.init("url", "mongodb://daling:114514@10.0.0.5/daling", () => logger.warn("初始化 url 配置：mongodb://daling:114514@10.0.0.5/daling"))
+const _maxPoolSize : number = conf.init("maxPoolSize", 20, () => logger.warn("初始化 MaxPoolSize 配置：20"))
+const _minPoolSize : number = conf.init("minPoolSize", 3, () => logger.warn("初始化 MinPoolSize 配置：3"))
+
+export default class MongoDB {
     protected _MongoDB : MongoClient
 
     /**
-     * 连接 MongoDB
-     * @param url 连接 URI
-     * @param maxPoolSize 最大连接池大小
-     * @param minPoolSize 最小连接池大小
+     * 创建 MongoDB 连接
      */
-    public constructor (url : string, maxPoolSize : number = 20, minPoolSize : number = 3) {
-        this._MongoDB = new MongoClient(url, { maxPoolSize , minPoolSize })
+    public constructor () {
+        this._MongoDB = new MongoClient(_url, {
+            maxPoolSize: _maxPoolSize,
+            minPoolSize: _minPoolSize
+        })
 
         this._MongoDB.connect().catch(err => {
             logger.fatal(`连接 MongoDB 时出现错误:${err}`)
@@ -112,5 +119,3 @@ class MongoDB {
         })
     }
 }
-
-export default MongoDB

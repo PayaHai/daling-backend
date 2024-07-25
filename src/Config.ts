@@ -1,12 +1,9 @@
-import Logger from "./Logger.js"
 import fs from "fs"
-
-const logger : Logger = new Logger("Config")
 
 /**
  * 配置文件管理器
  */
-class Config {
+export default class Config {
     protected _fileName : string
     protected _filePath : string
     protected _config : Map<string, any> = new Map()
@@ -20,7 +17,7 @@ class Config {
         try {
             fs.writeFileSync(this._filePath, data, "utf8")
         } catch (err) {
-            logger.fatal(`写入配置文件"${this._filePath}"时出现错误:${err}`)
+            console.log(`写入配置文件"${this._filePath}"时出现错误:${err}`)
         }
     }
 
@@ -47,7 +44,7 @@ class Config {
             let data = JSON.parse(fs.readFileSync(this._filePath, "utf8"))
             this._config = new Map(Object.entries(data))
         } catch (err) {
-            logger.fatal(`读取配置文件"${this._filePath}"时出现错误:${err}`)
+            console.log(`读取配置文件"${this._filePath}"时出现错误:${err}`)
         }
     }
 
@@ -88,5 +85,3 @@ class Config {
         this._save()
     }
 }
-
-export default Config
