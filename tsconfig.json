@@ -1,6 +1,6 @@
 {
     "compilerOptions": {
-        "module": "node16",
+        "module": "Node16",
         "target": "ES2023",
         "noImplicitAny": true,
         "sourceMap": true,
