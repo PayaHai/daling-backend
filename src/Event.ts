@@ -1,16 +1,17 @@
+// 事件管理器
+const _eventList : Map<string, Function[]> = new Map()
+
 /**
  * 事件管理器
  */
 class Event {
-    protected _eventList : Map<string, Function[]> = new Map()
-
     /**
      * 创建事件
      * @param name 事件名称
      */
     public create (name : string) : void {
-        if ( !this._eventList.has(name) ) {
-            this._eventList.set(name, [])
+        if ( !_eventList.has(name) ) {
+            _eventList.set(name, [])
         }
     }
 
@@ -20,8 +21,8 @@ class Event {
      * @param args 参数
      */
     public trigger (name : string, ...args : any[]) : void {
-        if ( this._eventList.has(name) ) {
-            this._eventList.get(name).forEach(func => {
+        if ( _eventList.has(name) ) {
+            _eventList.get(name).forEach(func => {
                 func(...args)
             })
         }
@@ -33,8 +34,8 @@ class Event {
      * @param func 回调函数
      */
     public listen (name : string, func : Function) : void {
-        if ( this._eventList.has(name) ) {
-            this._eventList.get(name).push(func)
+        if ( _eventList.has(name) ) {
+            _eventList.get(name).push(func)
         }
     }
 }
