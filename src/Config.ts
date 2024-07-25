@@ -1,5 +1,5 @@
-import Logger from "./Logger"
-const fs = require("fs")
+import Logger from "./Logger.js"
+import fs from "fs"
 
 const logger : Logger = new Logger("Config")
 
@@ -30,12 +30,12 @@ class Config {
      */
     public constructor (fileName : string) {
         this._fileName = fileName
-        this._filePath = "./config/" + this._fileName + ".json"
+        this._filePath = "../config/" + this._fileName + ".json"
 
         try {
             // 创建文件夹
-            if (!fs.existsSync("./config")) {
-                fs.mkdirSync("./config")
+            if (!fs.existsSync("../config")) {
+                fs.mkdirSync("../config")
             }
 
             // 创建文件

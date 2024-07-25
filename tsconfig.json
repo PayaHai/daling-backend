@@ -1,13 +1,13 @@
 {
     "compilerOptions": {
-        "module": "commonjs",
-        "target": "es6",
+        "module": "node16",
+        "target": "ES2023",
         "noImplicitAny": true,
         "sourceMap": true,
         "rootDir":".",
         "outDir":"./build"
     },
     "include":[
-        "./src/*"
+        "./src/**/*"
     ]
 }

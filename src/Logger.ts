@@ -1,4 +1,5 @@
-const fs = require("fs")
+import fs from "fs"
+
 
 /**
  * 日志管理器
@@ -7,7 +8,7 @@ class Logger {
     protected _title : string
     protected _logLevel : number
     protected _isFiles : boolean = true
-    protected _logFiles : string = "./logs"
+    protected _logFiles : string = "../logs"
 
     /**
      * 获取当前时间
