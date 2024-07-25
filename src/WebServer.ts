@@ -20,6 +20,9 @@ class WebServer {
         this._app = new Koa()
         this._router = new Router()
 
+        // 代理/CDN
+        this._app.proxy = true
+
         // 监听所有请求
         this._app.use(async (ctx : any, next : Function) => {
             ctx.set("Content-Type", "application/json")
