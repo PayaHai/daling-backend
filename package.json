@@ -14,17 +14,22 @@
   "license": "GPL-3.0",
   "repository": "github:PayaHai/daling-backend",
   "dependencies": {
+    "@koa/cors": "^5.0.0",
     "@types/jsonwebtoken": "^9.0.6",
-    "@types/koa__cors": "^5.0.0",
-    "@types/koa-bodyparser": "^4.3.12",
+    "@types/nodemailer": "^6.4.15",
     "axios": "^1.7.2",
     "fs": "^0.0.1-security",
     "hasha": "^6.0.0",
     "koa": "^2.15.3",
+    "koa-bodyparser": "^4.4.1",
     "koa-router": "^12.0.1",
     "mongodb": "^6.8.0",
     "mysql2": "^3.10.2",
     "thread-pool": "^0.0.1",
     "uuid": "^10.0.0"
+  },
+  "devDependencies": {
+    "@types/koa__cors": "^5.0.0",
+    "@types/koa-bodyparser": "^4.3.12"
   }
 }
