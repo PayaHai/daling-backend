@@ -1,7 +1,5 @@
 import * as redis from 'redis'
 
-import fs from "fs"
-
 import Logger from "./Logger.js"
 import Config from "./Config.js"
 
